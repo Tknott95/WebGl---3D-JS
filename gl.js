@@ -3,20 +3,22 @@ var shaderProgram;
 
 initGL();
 createShaders();
+createVertices();
 draw();
 
 function initGL() {
     var canvas = document.getElementById("canvas");
     gl = canvas.getContext("webgl");
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0, 0, 0, 0);
+    gl.clearColor(0, 0, 0, 1);
 }
 
 function createShaders() {
     var vs = "";
+    vs += "attribute vec4 coords;";
     vs += "void main(void) {";
-    vs += " gl_Position = vec4(0.0, 0.0, 0.0, 1.0);";
-    vs += " gl_PointSize = 10.0;";
+    vs += " gl_Position = coords;";
+    vs += " gl_PointSize = 100.0;";
     vs += "}";
 
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
@@ -25,7 +27,7 @@ function createShaders() {
 
     var fs = "";
     fs += "void main(void) {";
-    fs += " gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);";
+    fs += " gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);";
     fs += "}";
 
     var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -39,6 +41,11 @@ function createShaders() {
     gl.useProgram(shaderProgram);
 
 
+}
+
+function createVertices() {
+    var coords = gl.getAttribLocation(shaderProgram, "coords");
+    gl.vertexAttrib3f(coords, 0, 0, 0);
 }
 
 function draw() {
