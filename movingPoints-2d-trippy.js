@@ -1,7 +1,7 @@
 var gl,
     shaderProgram,
     vertices,
-    vertexCount = 5000,;
+    vertexCount = 5000;
 
 initGL();
 createShaders();
